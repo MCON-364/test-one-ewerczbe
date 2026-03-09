@@ -6,7 +6,14 @@ public class StudyTracker {
 
     private final Map<String, List<Integer>> scoresByLearner = new HashMap<>();
     private final Deque<UndoStep> undoStack = new ArrayDeque<>();
+    // Helper methods already provided for tests and local inspection.
+    public Optional<List<Integer>> scoresFor(String name) {
+        return Optional.ofNullable(scoresByLearner.get(name));
+    }
 
+    public Set<String> learnerNames() {
+        return scoresByLearner.keySet();
+    }
     /**
      * Problem 11
      * Add a learner with an empty score list.
@@ -77,12 +84,5 @@ public class StudyTracker {
         throw new UnsupportedOperationException();
     }
 
-    // Helper methods already provided for tests and local inspection.
-    public Optional<List<Integer>> scoresFor(String name) {
-        return Optional.ofNullable(scoresByLearner.get(name));
-    }
 
-    public Set<String> learnerNames() {
-        return scoresByLearner.keySet();
-    }
 }

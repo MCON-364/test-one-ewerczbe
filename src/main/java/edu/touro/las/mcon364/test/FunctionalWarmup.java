@@ -44,7 +44,8 @@ public class FunctionalWarmup {
      * Notes:
      * - Trim first.
      * - Blank strings should return 0.
-     * - Words are separated by one or more spaces.
+     * - Words are separated by one or more spaces (use can use regex "\\s+")
+     *
      */
     public static Function<String, Integer> wordCounter() {
         throw new UnsupportedOperationException();
