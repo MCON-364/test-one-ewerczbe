@@ -2,9 +2,11 @@ package edu.touro.las.mcon364.test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class FunctionalWarmup {
 
@@ -13,7 +15,9 @@ public class FunctionalWarmup {
      * Return a Supplier that gives the current month number (1-12).
      */
     public static Supplier<Integer> currentMonthSupplier() {
-        throw new UnsupportedOperationException();
+        //Supplier<Integer> monthSupplier = () -> LocalDate.now().getMonthValue();
+       //return monthSupplier;
+        return () -> LocalDate.now().getMonthValue();
     }
 
     /**
@@ -22,7 +26,9 @@ public class FunctionalWarmup {
      * has more than 5 characters.
      */
     public static Predicate<String> longerThanFive() {
-        throw new UnsupportedOperationException();
+       // Predicate<String> longerThanFive = s -> s.length() > 5;
+       // return longerThanFive;
+        return x -> x != null && x.length()>=5;
     }
 
     /**
@@ -34,7 +40,10 @@ public class FunctionalWarmup {
      * Prefer chaining smaller predicates.
      */
     public static Predicate<Integer> positiveAndEven() {
-        throw new UnsupportedOperationException();
+     Predicate<Integer> positive = x -> x > 0;
+     Predicate<Integer> even = x -> x % 2 == 0;
+     Predicate<Integer>positiveAndEven = positive.and(even);
+     return positiveAndEven;
     }
 
     /**
@@ -48,8 +57,13 @@ public class FunctionalWarmup {
      *
      */
     public static Function<String, Integer> wordCounter() {
-        throw new UnsupportedOperationException();
-    }
+        Function<String, Integer> wordCount  = s -> {
+            if(s == null || s.isBlank())
+                return 0;
+            return s.trim().split("\\s+").length;
+        };
+    return wordCount;}
+
 
     /**
      * Problem 5
@@ -63,6 +77,6 @@ public class FunctionalWarmup {
      * ["  math ", "", " java", "  "] -> ["MATH", "JAVA"]
      */
     public static List<String> cleanLabels(List<String> labels) {
-        throw new UnsupportedOperationException();
+      return labels.stream().filter(Objects::nonNull).map(String::trim).filter(s -> !s.isEmpty()).map(String::toUpperCase).collect(Collectors.toList());
     }
 }
